@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const TodosSchema = mongoose.Schema({
+const TodosSchema = new mongoose.Schema({
     name: { type : String, required: true, minlength: 3 },
     author: String,
     uid: String,
