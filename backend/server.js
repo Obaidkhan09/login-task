@@ -2,7 +2,8 @@ import express from "express";
 import mongoose from "mongoose";
 import cors from "cors";
 import 'dotenv/config';
-import todoRouter from './routes/todoRoute.js'
+import todoRouter from './routes/todoRoute.js';
+import usersRouter from './routes/usersRoute.js';
 
 
 //Config Server
@@ -15,6 +16,7 @@ app.use(express.json());
 app.use(cors());
     //Router endpoints
 app.use('/api/todos', todoRouter);
+app.use('/api/signup', usersRouter);
 //Config DB
 mongoose.connect(connection_url)
 .then( ()=> console.log('Connected to DB Successfully.'))
