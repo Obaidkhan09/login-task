@@ -3,7 +3,8 @@ import mongoose from "mongoose";
 import cors from "cors";
 import 'dotenv/config';
 import todoRouter from './routes/todoRoute.js';
-import usersRouter from './routes/usersRoute.js';
+import signupRouter from './routes/signupRoute.js';
+import signinRouter from './routes/signInRoute.js'
 
 
 //Config Server
@@ -16,7 +17,8 @@ app.use(express.json());
 app.use(cors());
     //Router endpoints
 app.use('/api/todos', todoRouter);
-app.use('/api/signup', usersRouter);
+app.use('/api/signup', signupRouter);
+app.use('/api/signin', signinRouter);
 //Config DB
 mongoose.connect(connection_url)
 .then( ()=> console.log('Connected to DB Successfully.'))
