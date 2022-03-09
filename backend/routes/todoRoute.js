@@ -1,11 +1,13 @@
 import express from "express";
 import Joi from "joi";
+import auth from "../middleware/auth.js";
 import TodosSchema from "../models/TodosSchema.js";
 
 const router = express.Router();
-router.get('/', async (req, res) => {
+router.get('/', auth, async (req, res) => {
     try {
         const todo = await TodosSchema.find({ isComplete: false }).sort({ date: -1 });
+        console.log(req.user);
         res.status(200).send(todo);
     } catch (error) {
         res.status(500).send("An Error Occurred: ", error.message);
