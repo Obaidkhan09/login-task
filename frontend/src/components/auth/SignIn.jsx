@@ -33,6 +33,7 @@ export default function SignIn() {
               variant="filled"
               size="small"
               placeholder='Password'
+              type="password"
               fullWidth
             />
           </Grid>

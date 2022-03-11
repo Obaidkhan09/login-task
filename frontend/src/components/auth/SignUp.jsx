@@ -32,6 +32,7 @@ export default function SignUp() {
               variant="filled"
               size="small"
               placeholder='Password'
+              type="password"
               fullWidth
             />
           </Grid>

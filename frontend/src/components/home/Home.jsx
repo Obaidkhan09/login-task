@@ -7,13 +7,35 @@ import Button from '@mui/material/Button'
 import "../styles/home.css"
 
 export default function Home() {
-    const [inn, setIn] = useState(true);
-    const [widthSize, setWidthSize] = useState('400px');
+
+    const [ inn, setIn ] = useState(true);
+    const [ widthSize, setWidthSize ] = useState('40%');
+    const [ innBorder, setInnBorder ] = useState('1px solid #E62E2D');
+    const [ uppBorder, setUppBorder ] = useState('none');
+    const [ innBgClr, setInnBgClr ] = useState('#E62E2D');
+    const [ uppBgClr, setUppBgClr ] = useState('white');
+    const [ innFntClr, setInnFntClr ] = useState('white');
+    const [ uppFntClr, setUppFntClr ] = useState('#E62E2D');
+
     const handleSignIn = () => {
         setIn(true);
+        setInnBorder('1px solid #E62E2D');
+        setUppBorder('none');
+        setInnBgClr('#E62E2D');
+        setUppBgClr('white');
+        setInnFntClr('white');
+        setUppFntClr('#E62E2D');
     }
+
     const handleSignUp = () => {
         setIn(false);
+        setUppBorder('1px solid #E62E2D');
+        setInnBorder('none');
+        setInnBgClr('white');
+        setUppBgClr('#E62E2D');
+        setInnFntClr('#E62E2D');
+        setUppFntClr('white');
+
     }
     return (
         <div style={{
@@ -35,9 +57,10 @@ export default function Home() {
                 >
                     <div>
                         <Button style={{
-                            color: '#E62E2D',
+                            color: `${innFntClr}`,
+                            backgroundColor : `${innBgClr}`,
                             fontWeight : 600,
-                            border : "1px solid #E62E2D"
+                            border : `${innBorder}`
                         }}
                             onClick={() => handleSignIn() }
                         >
@@ -47,11 +70,12 @@ export default function Home() {
                     <div>
                         <Button
                             style={{
-                                color: '#E62E2D',
+                                color: `${uppFntClr}`,
+                                backgroundColor : `${uppBgClr}`,
                                 fontWeight : 600,
-                                border : "1px solid #E62E2D"
+                                border : `${uppBorder}`
                             }}
-                            onClick={()=> {setIn(false)} }
+                            onClick={()=> handleSignUp() }
                         >
                             Sign Up
                         </Button>
