@@ -4,10 +4,18 @@ import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 import EditIcon from '@mui/icons-material/Edit';
 
-import { styled } from '@mui/system';
+import { useDispatch, useSelector } from 'react-redux';
+import { useEffect } from 'react';
+import { getTodosState, todosFetch } from '../../features/todoSlice';
 
 
 function ListTodos() {
+    const dispatch = useDispatch();
+    const todoState = useSelector(getTodosState);
+    useEffect(()=>{
+        dispatch(todosFetch());
+    }, []);
+    console.log(todoState)
     return (
         <div style={{ marginTop: 30, marginBottom : 30, display : 'flex', justifyContent : 'center'}}>
             <div style={{ width: '90%' }}>
