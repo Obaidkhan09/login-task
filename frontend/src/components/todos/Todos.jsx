@@ -3,14 +3,11 @@ import AddTodos from './AddTodos'
 import ListTodos from './ListTodos'
 
 export default function Todos() {
-  const [inn, setIn] = useState(true);
   const [widthSize, setWidthSize] = useState('40%');
-  const handleSignIn = () => {
-    setIn(true);
-  }
-  const handleSignUp = () => {
-    setIn(false);
-  }
+  const [todo, setTodo] = useState({
+    name:"",
+    isComplete:false
+  });
   return (
     <div>
       <div style={{
@@ -24,8 +21,8 @@ export default function Todos() {
           }}
         >
           <h3>Welcome User</h3>
-          <AddTodos />
-          <ListTodos />
+          <AddTodos todo={todo} setTodo={setTodo} />
+          <ListTodos rodo={todo} setTodo={setTodo} />
         </div>
       </div>
     </div>
