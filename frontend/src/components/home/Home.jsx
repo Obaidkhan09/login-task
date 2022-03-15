@@ -45,7 +45,7 @@ export default function Home() {
             <div className='home'
                 style={{
                     width: `${widthSize}`,
-                    height: 400
+                    minHeight: 400
                 }}
             >
                 <h3>Welcome to Todo App</h3>
