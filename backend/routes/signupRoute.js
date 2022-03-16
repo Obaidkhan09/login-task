@@ -17,9 +17,9 @@ router.post('/', async (req, res) => {
         email: Joi.string().min(8).max(100).email().required(),
         password: Joi.string().min(5).max(100).required(),
     });
-    const { error } = await schema.validate(req.body);
+    const { error } = schema.validate(req.body);
     if (error) {
-        return res.status(422).send('Data Validation Error for Post : ', error.details[0].message);
+        return res.status(422).send(error.details[0].message);
     }
     try {
         const temp = await UsersSchema.findOne({ email: req.body.email });
@@ -37,7 +37,7 @@ router.post('/', async (req, res) => {
         user.password = await bcrypt.hash(user.password, salt)
         user.save();
         const secretKey = process.env.SECRET;
-        const token = jwt.sign({ _id: user._id, name: user.name, email: user.email, password: user.password },
+        const token = jwt.sign({ _id: user._id, name: user.name, email: user.email },
             secretKey
         );
         res.status(201).send(token);

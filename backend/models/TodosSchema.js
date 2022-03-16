@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 
 const TodosSchema = new mongoose.Schema({
-    name: { type : String, required: true, minlength: 3 },
+    task: { type : String, required: true, minlength: 3 },
     author: String,
     uid: String,
     isComplete: Boolean,

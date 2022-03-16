@@ -4,9 +4,9 @@ import auth from "../middleware/auth.js";
 import TodosSchema from "../models/TodosSchema.js";
 
 const router = express.Router();
-router.get('/', auth, async (req, res) => {
+router.get('/', async (req, res) => {
     try {
-        const todo = await TodosSchema.find({ isComplete: false }).sort({ date: -1 });
+        const todo = await TodosSchema.find().sort({ date: -1 });
         console.log(req.user);
         res.status(200).send(todo);
     } catch (error) {
@@ -15,7 +15,7 @@ router.get('/', auth, async (req, res) => {
 });
 router.post('/', async (req, res) => {
     const schema = Joi.object({
-        name: Joi.string().min(3).max(30).required(),
+        task: Joi.string().min(3).max(50).required(),
         author: Joi.string().min(3).max(30),
         uid: Joi.string(),
         isComplete: Joi.boolean(),
@@ -26,9 +26,9 @@ router.post('/', async (req, res) => {
         return res.status(400).send(error.details[0].message);
     }
 
-    const { name, author, uid, isComplete, date } = req.body;
+    const { task, author, uid, isComplete, date } = req.body;
     let todo = new TodosSchema({
-        name,
+        task,
         author,
         uid,
         isComplete,
@@ -45,7 +45,7 @@ router.post('/', async (req, res) => {
 
 router.delete('/:id', async (req, res) => {
     try {
-        const todo = await TodosSchema.findById(req.body.id);
+        const todo = await TodosSchema.findById(req.params.id);
         if (!todo) {
             return res.status(404).send('No Such ID Found.');
         }
@@ -58,7 +58,7 @@ router.delete('/:id', async (req, res) => {
 
 router.put('/:id', async (req, res) => {
     const schema = Joi.object({
-        name: Joi.string().min(3).max(30).required(),
+        task: Joi.string().min(3).max(30).required(),
         author: Joi.string().min(3).max(30),
         uid: Joi.string(),
         isComplete: Joi.boolean(),
@@ -76,9 +76,9 @@ router.put('/:id', async (req, res) => {
             return res.status(404).send('No Such File or Location exists.');
         }
 
-        const { name, author, uid, isComplete, date } = req.body;
+        const { task, author, uid, isComplete, date } = req.body;
         const updateTodo = await TodosSchema.findByIdAndUpdate(req.params.id, {
-            name,
+            task,
             author,
             uid,
             isComplete,
