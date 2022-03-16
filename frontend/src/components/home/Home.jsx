@@ -8,14 +8,14 @@ import "../styles/home.css"
 
 export default function Home() {
 
-    const [ inn, setIn ] = useState(true);
-    const [ widthSize, setWidthSize ] = useState('40%');
-    const [ innBorder, setInnBorder ] = useState('1px solid #E62E2D');
-    const [ uppBorder, setUppBorder ] = useState('none');
-    const [ innBgClr, setInnBgClr ] = useState('#E62E2D');
-    const [ uppBgClr, setUppBgClr ] = useState('white');
-    const [ innFntClr, setInnFntClr ] = useState('white');
-    const [ uppFntClr, setUppFntClr ] = useState('#E62E2D');
+    const [inn, setIn] = useState(true);
+    const [widthSize, setWidthSize] = useState('40%');
+    const [innBorder, setInnBorder] = useState('1px solid #E62E2D');
+    const [uppBorder, setUppBorder] = useState('none');
+    const [innBgClr, setInnBgClr] = useState('#E62E2D');
+    const [uppBgClr, setUppBgClr] = useState('white');
+    const [innFntClr, setInnFntClr] = useState('white');
+    const [uppFntClr, setUppFntClr] = useState('#E62E2D');
 
     const handleSignIn = () => {
         setIn(true);
@@ -58,11 +58,11 @@ export default function Home() {
                     <div>
                         <Button style={{
                             color: `${innFntClr}`,
-                            backgroundColor : `${innBgClr}`,
-                            fontWeight : 600,
-                            border : `${innBorder}`
+                            backgroundColor: `${innBgClr}`,
+                            fontWeight: 600,
+                            border: `${innBorder}`
                         }}
-                            onClick={() => handleSignIn() }
+                            onClick={() => handleSignIn()}
                         >
                             Sign In
                         </Button>
@@ -71,11 +71,11 @@ export default function Home() {
                         <Button
                             style={{
                                 color: `${uppFntClr}`,
-                                backgroundColor : `${uppBgClr}`,
-                                fontWeight : 600,
-                                border : `${uppBorder}`
+                                backgroundColor: `${uppBgClr}`,
+                                fontWeight: 600,
+                                border: `${uppBorder}`
                             }}
-                            onClick={()=> handleSignUp() }
+                            onClick={() => handleSignUp()}
                         >
                             Sign Up
                         </Button>

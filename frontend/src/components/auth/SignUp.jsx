@@ -9,6 +9,7 @@ import { Navigate } from 'react-router-dom';
 
 import { signUp } from '../../features/authSlice';
 import axios from '../../constants/constants';
+import { toast } from "react-toastify";
 
 export default function SignUp() {
 
@@ -20,20 +21,31 @@ export default function SignUp() {
   });
   const dispatch = useDispatch();
   const handleSubmit = async () => {
-    const token = await axios.post('/api/signup', user);
-    console.log(token.data);
-    dispatch(signUp(token.data))
-    setUser({
-      name: "",
-      email: "",
-      password: ""
-    })
+    try {
+      const token = await axios.post('/api/signup', user);
+      dispatch(signUp(token.data))
+      setUser({
+        name: "",
+        email: "",
+        password: ""
+      })
+    } catch (error) {
+      toast.error(`${error.response.data}`, {
+        position: "bottom-left",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'colored'
+      });
+    }
   }
-  useEffect(()=>{
-    console.log(auth);
+  useEffect(() => {
   }, [auth]);
 
-  if (auth._id) { return <Navigate to="/todos" />}
+  if (auth?._id) { return <Navigate to="/todos" /> }
   return (
     <div style={{ display: 'flex', justifyContent: 'space-evenly', marginBottom: 30 }}>
       <div style={{ width: '60%' }}>

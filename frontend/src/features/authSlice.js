@@ -16,8 +16,8 @@ const authSlice = createSlice({
     reducers: {
         signUp(state, action) {
             localStorage.setItem('token', action.payload)
-            const user = jwtDecode(action.payload);
             state.token = action.payload
+            const user = jwtDecode(action.payload);
             state.name = user.name;
             state.email = user.email;
             state._id = user._id;
@@ -31,12 +31,27 @@ const authSlice = createSlice({
                 state.email = user.email;
                 state._id = user._id;
             }
-            else return null;
+            else return {...state};
+        },
+        signIn (state, action) {
+            localStorage.setItem('token', action.payload)
+            const user = jwtDecode(action.payload);
+            state.token = action.payload
+            state.name = user.name;
+            state.email = user.email;
+            state._id = user._id;
+        },
+        signOut (state, action) {
+            localStorage.removeItem('token');
+            state.token = null;
+            state.name = null;
+            state.email = null;
+            state._id = null;
         }
     },
     extraReducers: {}
 });
 
 export default authSlice.reducer;
-export const { signUp, loadUser } = authSlice.actions;
+export const { signUp, loadUser, signIn, signOut } = authSlice.actions;
 // export const getAuth = (state)=> state.auth.token

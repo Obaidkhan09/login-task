@@ -4,45 +4,65 @@ import Button from '@mui/material/Button'
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 
 import axios from '../../constants/constants'
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { todosFetch } from '../../features/todoSlice';
+import { toast } from "react-toastify";
 
 export default function AddTodos({ todo, setTodo }) {
+    const auth = useSelector((state) => state.auth);
     // const [task, setTask] = useState({
     //     name: "",
     //     isComplete: false,
     // });
     const dispatch = useDispatch();
     const handleChange = (e) => {
-        setTodo({ ...todo, name: e.target.value})
+        setTodo({ ...todo, task: e.target.value })
     }
-    const handleSubmit = async(e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        if (todo._id) {
-            const id = todo._id;
-            const updatedTodo = {
-                name: todo.name,
-                isComplete: false,
-                date: todo.date,
-                author: todo.author,
-                uid: todo.uid
+        try {
+            if (todo._id) {
+                const id = todo._id;
+                const updatedTodo = {
+                    task: todo.task,
+                    isComplete: false,
+                    date: todo.date,
+                    author: auth.name,
+                    uid: todo.uid
+                }
+                await axios.put(`/api/todos/${id}`, updatedTodo);
+                setTodo({
+                    task: '',
+                    isComplete: false,
+                });
+                dispatch(todosFetch());
             }
+            else {
+                const newTodo = {
+                    ...todo,
+                    date: new Date(),
+                    author: auth.name,
+                }
+                await axios.post('/api/todos', newTodo);
+                setTodo({
+                    task: '',
+                    isComplete: false,
+                });
+                dispatch(todosFetch());
+            }
+        } catch (error) {
+            toast.error(`${error.response.data}`, {
+                position: "bottom-left",
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme : 'colored'
+                });
+        }
 
-            await axios.put(`/api/todos/${id}`, updatedTodo);
-            dispatch(todosFetch());
-        }
-        else {
-            const newTodo={
-                ...todo,
-                date : new Date()
-            }
-            await axios.post('/api/todos', newTodo);
-            setTodo({
-                name: '',
-                isComplete: false,
-            });
-            dispatch(todosFetch());
-        }
     }
     return (
         <div style={{
@@ -59,7 +79,7 @@ export default function AddTodos({ todo, setTodo }) {
                     placeholder='Enter Task'
                     fullWidth
                     autoFocus
-                    value={todo.name}
+                    value={todo.task}
                     onChange={handleChange}
                 />
                 <Button

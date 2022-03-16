@@ -18,7 +18,6 @@ function ListTodos({ todo, setTodo }) {
     useEffect(() => {
         dispatch(todosFetch());
     }, []);
-    console.log(todoState);
 
     const handleUpdate = (id)=> {
         const findId = todoState.find((item) => item._id == id);
@@ -50,10 +49,10 @@ function ListTodos({ todo, setTodo }) {
                     }}>
                         <div>
                             <Typography align='left' style={{ textDecoration : `${items.isComplete ? 'line-through' : "none" }` }}>
-                                {items.name}
+                                {items.task}
                             </Typography>
                             <Typography align='left' style={{ color: '#494F55', fontSize: 12 }}>
-                                Author : Obaid
+                                Author : {items.author}
                             </Typography>
                             <Typography align='left' style={{ color: '#494F55', fontSize: 12 }}>
                                 Added : { moment(items.date).fromNow() }
